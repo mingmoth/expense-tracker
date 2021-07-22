@@ -17,13 +17,19 @@ db.once('open', () => {
   console.log('mongodb connected')
 })
 
+const Expense = require('./models/expense.js')
 
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
-  res.render('index')
+  //res.render('index')
+  Expense.find()
+    .lean()
+    .sort({ _id: 'asc'})
+    .then(expenses => res.render('index', {expenses}))
+    .catch(error => console.log(error))
 })
 
 app.listen(3000, () => {
