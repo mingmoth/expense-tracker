@@ -3,26 +3,26 @@
     {{#each expenses}}
     <li class="list-group-item">
       <div class="row">
-        <div class="col-3 col-sm-2">
-          <div class="d-flex flex column align-self-center">
+        <div class="col-3 col-sm-2 position-relative">
+          <div class="position-absolute top-50 start-50 translate-middle btn btn-secondary">
             <i class="fas fa-house-user"></i>
-            <p class="badge rounded-pill bg-info">{{this.category}}</p>
           </div>
         </div>
         <div class="col-3 col-sm-4">
-          <div class="d-flex flex column align-self-center">
+          <div class="d-flex flex-column align-self-center">
             <h4>{{this.name}}</h3>
-              <p>{{this.comment}}</p>
+              <p><span class="badge rounded-pill bg-warning mr-5">{{this.category}}</span>{{this.comment}}</p>
+
           </div>
         </div>
         <div class="col-3 col-sm-4">
-          <div class="d-flex flex column align-self-center">
+          <div class="d-flex flex-column align-self-center">
             <h3>{{this.cost}}</h3>
           </div>
         </div>
-        <div class="col-3 col-sm-2">
-          <div class="d-flex flex column align-self-center">
-            <a class="btn btn-info fas fa-edit" href="/expenses/{{this._id}}/edit"></a>
+        <div class="col-3 col-sm-2 position-relative">
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <a class="btn btn-secondary fas fa-edit" href="/expenses/{{this._id}}/edit"></a>
             <form action="./expenses/{{this._id}}/delete" method="POST" onSubmit="return confirm('你確定要刪除此項支出?');">
               <button type="submit" class="btn btn-warning fas fa-trash"></button>
             </form>
