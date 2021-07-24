@@ -17,6 +17,7 @@ db.once('open', () => {
     Expense.create({
       id: expenses.id,
       name: expenses.name,
+      date: expenses.date,
       category: expenses.category,
       cost: expenses.cost,
       comment: expenses.comment

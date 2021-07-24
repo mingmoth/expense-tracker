@@ -1,31 +1,33 @@
-<ul class="list-group">
-  {{#each expenses}}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-3 col-sm-2">
-        <div class="d-flex flex column align-self-center">
-          <i class="fas fa-house-user"></i>
-          <p class="badge rounded-pill bg-info">{{this.category}}</p>
+<div class="container">
+  <ul class="list-group">
+    {{#each expenses}}
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-3 col-sm-2">
+          <div class="d-flex flex column align-self-center">
+            <i class="fas fa-house-user"></i>
+            <p class="badge rounded-pill bg-info">{{this.category}}</p>
+          </div>
+        </div>
+        <div class="col-3 col-sm-4">
+          <div class="d-flex flex column align-self-center">
+            <h4>{{this.name}}</h3>
+              <p>{{this.comment}}</p>
+          </div>
+        </div>
+        <div class="col-3 col-sm-4">
+          <div class="d-flex flex column align-self-center">
+            <h3>{{this.cost}}</h3>
+          </div>
+        </div>
+        <div class="col-3 col-sm-2">
+          <div class="d-flex flex column align-self-center">
+            <button class="btn btn-info fas fa-edit"></button>
+            <button class="btn btn-warning fas fa-trash"></button>
+          </div>
         </div>
       </div>
-      <div class="col-3 col-sm-4">
-        <div class="d-flex flex column align-self-center">
-          <h4>{{this.name}}</h3>
-            <p>{{this.comment}}</p>
-        </div>
-      </div>
-      <div class="col-3 col-sm-4">
-        <div class="d-flex flex column align-self-center">
-          <h3>{{this.cost}}</h3>
-        </div>
-      </div>
-      <div class="col-3 col-sm-2">
-        <div class="d-flex flex column align-self-center">
-          <button class="btn btn-info fas fa-edit"></button>
-          <button class="btn btn-warning fas fa-trash"></button>
-        </div>
-      </div>
-    </div>
-  </li>
-  {{/each}}
-</ul>
+    </li>
+    {{/each}}
+  </ul>
+</div>

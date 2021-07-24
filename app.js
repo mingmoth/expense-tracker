@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars');
-
+const bodyParser = require('body-parser')
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/expense-tracker',
@@ -22,12 +22,31 @@ const Expense = require('./models/expense')
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+// 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
+app.use(bodyParser.urlencoded({ extended: true }))
 
+//首頁
 app.get('/', (req, res) => {
   Expense.find()
     .lean()
     .sort({ _id: 'asc' })
     .then(expenses => res.render('index', { expenses }))
+    .catch(error => console.log(error))
+})
+
+//新增支出
+app.get('/expenses/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/expenses', (req, res) => {
+  const name = req.body.name
+  const date = req.body.date
+  const category = req.body.category
+  const cost = req.body.cost
+  const comment = req.body.comment
+  return Expense.create({ name, date, category, cost, comment})
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
