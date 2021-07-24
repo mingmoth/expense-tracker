@@ -1,7 +1,33 @@
-<ul class="container">
+
+<ul class="list-group">
   {{#each expenses}}
-  <li>
-    {{this.name}}
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col-3 col-cm-2">
+        <div class="d-flex flex column align-self-center">
+          <i class="fas fa-house-user"></i>
+          <a href="" class="badge btn-outline-info">{{this.category}}</a>
+        </div>
+      </div>
+      <div class="col-3 col-cm-4">
+        <div class="d-flex flex column align-self-center">
+          <h4>{{this.name}}</h3>
+            <a href="">{{this.time}}</a>
+        </div>
+      </div>
+      <div class="col-3 col-cm-4">
+        <div class="d-flex flex column align-self-center">
+          <h3>{{this.cost}}</h3>
+          <p>{{this.comment}}</p>
+        </div>
+      </div>
+      <div class="col-3 col-cm-2">
+        <div class="d-flex flex column align-self-center">
+          <button class="btn btn-info fas fa-edit"></button>
+          <button class="btn btn-danger fas fa-trash"></button>
+        </div>
+      </div>
+    </div>
   </li>
   {{/each}}
 </ul>

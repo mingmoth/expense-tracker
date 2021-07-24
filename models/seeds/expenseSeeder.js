@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const Expense = require('./expense')//載入Expense model
+const Expense = require('../expense')//載入Expense model
 
 const expenseList = require('../../expense.json')
 const expenseData = expenseList.results
 
-mongoose.connect('mongodb://localhost/expense', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
