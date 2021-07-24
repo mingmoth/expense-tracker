@@ -79,6 +79,15 @@ app.post('/expenses/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//刪除支出
+app.post('/expenses/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Expense.findById(id)
+    .then(expense => expense.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
 })

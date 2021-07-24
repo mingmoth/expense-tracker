@@ -23,7 +23,9 @@
         <div class="col-3 col-sm-2">
           <div class="d-flex flex column align-self-center">
             <a class="btn btn-info fas fa-edit" href="/expenses/{{this._id}}/edit"></a>
-            <a class="btn btn-warning fas fa-trash"></a>
+            <form action="./expenses/{{this._id}}/delete" method="POST" onSubmit="return confirm('你確定要刪除此項支出?');">
+              <button type="submit" class="btn btn-warning fas fa-trash"></button>
+            </form>
           </div>
         </div>
       </div>
