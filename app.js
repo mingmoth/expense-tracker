@@ -45,7 +45,36 @@ app.post('/expenses', (req, res) => {
   const category = req.body.category
   const cost = req.body.cost
   const comment = req.body.comment
-  return Expense.create({ name, date, category, cost, comment})
+  return Expense.create({ name, date, category, cost, comment })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+//編輯支出
+app.get('/expenses/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Expense.findById(id)
+    .lean()
+    .then((expense) => res.render('edit', { expense }))
+    .catch(error => console.log(error))
+})
+
+app.post('/expenses/:id/edit', (req, res) => {
+  const id = req.params.id
+  const name = req.body.name
+  const date = req.body.date
+  const category = req.body.category
+  const cost = req.body.cost
+  const comment = req.body.comment
+  return Expense.findById(id)
+    .then(expense => {
+      expense.name = name
+      expense.date = date
+      expense.category = category
+      expense.cost = cost
+      expense.comment = comment
+      return expense.save()
+    })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

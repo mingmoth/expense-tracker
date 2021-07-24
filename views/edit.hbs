@@ -1,5 +1,67 @@
-<div class="container mt-5">
+<form action="/expenses/{{ expense._id }}/edit" method="POST">
+  <h1 class="mb-1 restaurant-show-title">Add New Expense</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 mx-auto">
+        <div class="d-flex justify-content-end mb-3">
+          <button class="btn btn-info" type="submit">Submit</button>
+          <a class="btn btn-outline-info ml-2" href="/">Back</a>
+        </div>
 
-</div>
+        <div class="row mb-1">
+          <label for="name" class="col-sm-3 col-form-label col-form-label-sm text-secondary">
+            <i class="pr-2 me-1"></i>名稱：
+          </label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control form-control-sm" placeholder="名稱" name="name" id="name"
+              value="{{expense.name}}" required>
+            <div class="invalid-feedback">需要填寫花費名稱</div>
+          </div>
+        </div>
 
-<div></div>
+        <div class="row mb-1">
+          <label for="name_en" class="col-sm-3 col-form-label col-form-label-sm text-secondary">
+            <i class="pr-2 me-1"></i>時間：
+          </label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control form-control-sm" placeholder="2021/07/24" name="date" id="date"
+              value="{{expense.date}}" required>
+            <div class="invalid-feedback">需要填寫花費時間</div>
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <label for="category" class="col-sm-3 col-form-label col-form-label-sm text-secondary">
+            <i class="pr-2 me-1"></i>類別：
+          </label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control form-control-sm" placeholder="花費類別" name="category" id="category"
+              value="{{expense.category}}" required>
+            <div class="invalid-feedback">需要填寫花費類別</div>
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <label for="rating" class="col-sm-3 col-form-label col-form-label-sm text-secondary">
+            <i class="pr-1 me-1"></i>金額：
+          </label>
+          <div class="col-sm-7">
+            <input type="number" class="form-control form-control-sm" placeholder="花費金額" name="cost" id="cost"
+              value="{{expense.cost}}" required>
+            <div class="invalid-feedback">需要填寫花費金額</div>
+          </div>
+        </div>
+
+        <div class="row mb-1">
+          <label for="location" class="col-sm-3 col-form-label col-form-label-sm text-secondary">
+            <i class="pr-2 me-1"></i>備註：
+          </label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control form-control-sm" placeholder="備註/地點/細項" name="comment" id="comment"
+              value="{{expense.comment}}">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
