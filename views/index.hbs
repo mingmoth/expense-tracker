@@ -1,7 +1,7 @@
 <div class="container my-5">
   <!--Cost Summary-->
-  <div class="row d-flex justify-content-center align-items-end">
-    <div class="d-flex justify-content-between" style="max-width: 960px;">
+  <div class="row d-flex justify-content-center ">
+    <div class="d-flex justify-content-between align-items-end" style="max-width: 960px;">
       <div class="col-4">
         <p style="font-size: 28px;">總金額 : </p>
       </div>
@@ -15,14 +15,14 @@
   <!--Selection-->
   <form action="/search">
     <div class="row d-flex justify-content-center">
-      <div class="row d-flex justify-content-between p-0 m-3" style="max-width: 960px;">
-        <div class="col-12 col-sm-6 m-0">
+      <div class="row d-flex justify-content-between p-0 mt-1 mb-3" style="max-width: 960px;">
+        <div class="col-12 col-sm-6 p-0 mt-2">
           <select class="form-select" name="" id="">
             <option value="" disabled selected>支出時間找時間做</option>
           </select>
         </div>
-        <div class="col-12 col-sm-6 m-0">
-          <select class="form-select" name="" id="">
+        <div class="col-12 col-sm-6 p-0 mt-2">
+          <select class="form-select" name="keyword" id="keyword" onchange="submit()">
             <option value="" disabled selected>支出類別</option>
             <option value="全部">全部</option>
             <option value="餐飲食品">餐飲食品</option>
