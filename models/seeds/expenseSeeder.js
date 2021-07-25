@@ -1,16 +1,11 @@
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const Expense = require('../expense')//載入Expense model
+const db = require('../../config/mongoose')
 
 const expenseList = require('../../expense.json')
 const expenseData = expenseList.results
 
-mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
 
-const db = mongoose.connection
-
-db.on('error', () => {
-  console.log('mongodb error!')
-})
 db.once('open', () => {
   console.log('mongodb connected')
   expenseData.forEach((expenses) => {
