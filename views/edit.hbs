@@ -24,7 +24,8 @@
             <i class="pr-2 me-1"></i>時間：
           </label>
           <div class="col-sm-7">
-            <input type="text" class="form-control form-control-sm" placeholder="2021/07/24" name="date" id="date"
+            
+            <input type="date" class="form-control form-control-sm" placeholder="2021/07/24" name="date" id="date"
               value="{{expense.date}}" required>
             <div class="invalid-feedback">需要填寫花費時間</div>
           </div>
@@ -35,8 +36,16 @@
             <i class="pr-2 me-1"></i>類別：
           </label>
           <div class="col-sm-7">
-            <input type="text" class="form-control form-control-sm" placeholder="花費類別" name="category" id="category"
-              value="{{expense.category}}" required>
+            <select type="text" class="form-control form-control-sm" placeholder="" name="category" id="category" required>
+              <option value="{{expense.category}}"selected disabled>{{expense.category}}</option>
+              <option value="餐飲食品">餐飲食品</option>
+              <option value="休閒娛樂">休閒娛樂</option>
+              <option value="交通出行">交通出行</option>
+              <option value="家居物業">家居物業</option>
+              <option value="其他">其他</option>
+            </select>
+            <!--<input type="text" class="form-control form-control-sm" placeholder="花費類別" name="category" id="category"
+              value="{{expense.category}}" required> -->
             <div class="invalid-feedback">需要填寫花費類別</div>
           </div>
         </div>

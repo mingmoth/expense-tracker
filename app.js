@@ -20,17 +20,32 @@ db.once('open', () => {
 const Expense = require('./models/expense')
 
 
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({
+  defaultLayout: 'main',
+  extname: '.hbs',
+  helpers: {
+    categoryIcon: function (icon, category) {
+      return category[icon]
+    }
+  }
+}))
 app.set('view engine', 'hbs')
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
 
 //首頁
 app.get('/', (req, res) => {
+  const categories = {
+    家居物業: '<i class="fas fa-laptop-house"></i>',
+    交通出行: '<i class="fas fa-bus-alt"></i>',
+    休閒娛樂: '<i class="fas fa-icons"></i>',
+    餐飲食品: '<i class="fas fa-hotdog"></i>',
+    其他: '<i class="fas fa-paste"></i>'
+  }
   Expense.find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(expenses => res.render('index', { expenses }))
+    .then(expenses => res.render('index', { expenses, categories }))
     .catch(error => console.log(error))
 })
 
