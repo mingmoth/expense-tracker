@@ -28,6 +28,7 @@ app.engine('hbs', exphbs({
       return category[icon]
     }
   }
+
 }))
 app.set('view engine', 'hbs')
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
@@ -42,12 +43,17 @@ app.get('/', (req, res) => {
     餐飲食品: '<i class="fas fa-hotdog"></i>',
     其他: '<i class="fas fa-paste"></i>'
   }
+  let totalCost = 0
   Expense.find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(expenses => res.render('index', { expenses, categories }))
+    .then((expenses) => {
+      expenses.forEach((expense) => totalCost += expense.cost),
+      res.render('index', { expenses, categories, totalCost })
+    })
     .catch(error => console.log(error))
 })
+
 
 //新增支出
 app.get('/expenses/new', (req, res) => {

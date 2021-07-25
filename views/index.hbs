@@ -1,36 +1,84 @@
-<div class="container">
-  <ul class="list-group d-flex justify-content-center">
-    {{#each expenses}}
-    <li class="list-group-item" style="max-width: 960px;">
-      <div class="row">
-        <div class="col-3 col-sm-2 position-relative">
-          <div class="position-absolute top-50 start-50 translate-middle btn btn-secondary">
-            {{{categoryIcon this.category ../categories}}}
-          </div>
+<div class="container my-5">
+  <!--Cost Summary-->
+  <div class="row d-flex justify-content-center align-items-end">
+    <div class="d-flex justify-content-between" style="max-width: 960px;">
+      <div class="col-4">
+        <p style="font-size: 28px;">總金額 : </p>
+      </div>
+      <div class="col-auto">
+        <p class="text-warning mb-0" style="font-size: 60px;">
+          {{totalCost}}
+        </p>
+      </div>
+    </div>
+  </div>
+  <!--Selection-->
+  <form action="/search">
+    <div class="row d-flex justify-content-center">
+      <div class="row d-flex justify-content-between p-0 m-3" style="max-width: 960px;">
+        <div class="col-12 col-sm-6 m-0">
+          <select class="form-select" name="" id="">
+            <option value="" disabled selected>支出時間找時間做</option>
+          </select>
         </div>
-        <div class="col-3 col-sm-4">
-          <div class="d-flex flex-column">
-            <h4 class='m-2'>{{this.name}}</h3>
-              <p class='m-2'><span class="badge rounded-pill bg-secondary mr-5">{{this.comment}}</span></p>
-          </div>
-        </div>
-        <div class="col-3 col-sm-4">
-          <div class="d-flex flex-column align-self-center">
-            <h3 class='m-2'>{{this.cost}}</h3>
-
-            <p class='m-2'>{{this.date}}</p>
-          </div>
-        </div>
-        <div class="col-3 col-sm-2 position-relative">
-          <div class="d-flex flex-column justify-content-center align-items-center">
-            <a class="btn btn-secondary fas fa-edit m-2" style="width: 40px;" href="/expenses/{{this._id}}/edit"></a>
-            <form action="./expenses/{{this._id}}/delete" method="POST" onSubmit="return confirm('你確定要刪除此項支出?');">
-              <button type="submit" class="btn btn-warning fas fa-trash m-2"></button>
-            </form>
-          </div>
+        <div class="col-12 col-sm-6 m-0">
+          <select class="form-select" name="" id="">
+            <option value="" disabled selected>支出類別</option>
+            <option value="全部">全部</option>
+            <option value="餐飲食品">餐飲食品</option>
+            <option value="休閒娛樂">休閒娛樂</option>
+            <option value="交通出行">交通出行</option>
+            <option value="家居物業">家居物業</option>
+            <option value="其他">其他</option>
+          </select>
         </div>
       </div>
-    </li>
+    </div>
+  </form>
+  <div class="row d-flex justify-content-center mb-3">
+    <div class="d-flex justify-content-end p-0" style="max-width: 960px;">
+      <a class="btn btn-outline-secondary" href="./expenses/new">新增支出</a>
+    </div>
+  </div>
+
+  <!--Expense List-->
+  <ul class="list-group ">
+    {{#each expenses}}
+    <div class="row d-flex justify-content-center">
+      <li class="list-group-item" style="max-width: 960px;">
+        <div class="row">
+          <div class="col-3 col-sm-2 position-relative">
+            <div class="position-absolute top-50 start-50 translate-middle btn btn-secondary">
+              {{{categoryIcon this.category ../categories}}}
+            </div>
+          </div>
+          <div class="col-3 col-sm-4">
+            <div class="d-flex flex-column">
+              <h4 class='m-2'>{{this.name}}</h3>
+                <p class='m-2'><span class="badge rounded-pill bg-secondary mr-5">{{this.comment}}</span></p>
+            </div>
+          </div>
+          <div class="col-3 col-sm-4">
+            <div class="d-flex flex-column align-self-center">
+              <h3 class='m-2'>{{this.cost}}</h3>
+
+              <p class='m-2'>{{this.date}}</p>
+            </div>
+          </div>
+          <div class="col-3 col-sm-2 position-relative">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <a class="btn btn-secondary fas fa-edit m-2" style="width: 40px;" href="/expenses/{{this._id}}/edit"></a>
+              <form action="./expenses/{{this._id}}/delete" method="POST" onSubmit="return confirm('你確定要刪除此項支出?');">
+                <button type="submit" class="btn btn-warning fas fa-trash m-2"></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </li>
+    </div>
     {{/each}}
   </ul>
+
+
+
 </div>
