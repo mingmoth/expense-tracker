@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/expense-tracker',
@@ -33,6 +34,8 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs')
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
 
 //首頁
 app.get('/', (req, res) => {
@@ -109,7 +112,7 @@ app.get('/expenses/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/expenses/:id/edit', (req, res) => {
+app.put('/expenses/:id', (req, res) => {
   const id = req.params.id
   const name = req.body.name
   const date = req.body.date
@@ -130,7 +133,7 @@ app.post('/expenses/:id/edit', (req, res) => {
 })
 
 //刪除支出
-app.post('/expenses/:id/delete', (req, res) => {
+app.delete('/expenses/:id', (req, res) => {
   const id = req.params.id
   return Expense.findById(id)
     .then(expense => expense.remove())
