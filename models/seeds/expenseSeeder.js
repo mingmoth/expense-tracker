@@ -2,21 +2,55 @@
 const Expense = require('../expense')//載入Expense model
 const db = require('../../config/mongoose')
 
-const expenseList = require('../../expense.json')
-const expenseData = expenseList.results
+const expenses = [
+  {
+    "id": 1,
+    "name": "午餐",
+    "date": "2021/7/22",
+    "category": "餐飲食品",
+    "cost": 120,
+    "comment": "麥當勞"
+  },
+  {
+    "id": 2,
+    "name": "電影",
+    "date": "2021/7/22",
+    "category": "休閒娛樂",
+    "cost": 230,
+    "comment": "黑寡婦"
+  },
+  {
+    "id": 3,
+    "name": "Uber",
+    "date": "2021/7/22",
+    "category": "交通出行",
+    "cost": 192,
+    "comment": ""
+  },
+  {
+    "id": 4,
+    "name": "電費",
+    "date": "2021/7/22",
+    "category": "家居物業",
+    "cost": 790,
+    "comment": "2021/05-2021/06"
+  },
+  {
+    "id": 5,
+    "name": "Alpha Camp 學費",
+    "date": "2021/7/22",
+    "category": "其他",
+    "cost": 3600,
+    "comment": "學期一"
+  }
+]
 
 
 db.once('open', () => {
-  console.log('mongodb connected')
-  expenseData.forEach((expenses) => {
-    Expense.create({
-      id: expenses.id,
-      name: expenses.name,
-      date: expenses.date,
-      category: expenses.category,
-      cost: expenses.cost,
-      comment: expenses.comment
+  Expense.create(expenses)
+    .then(() => {
+      console.log('expense seed done')
+      return db.close()
     })
-  })
-  console.log('Seed done')
+    .catch(err => console.log(err))
 })

@@ -9,11 +9,7 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const name = req.body.name
-  const date = req.body.date
-  const category = req.body.category
-  const cost = req.body.cost
-  const comment = req.body.comment
+  const { name, date, category, cost, comment } = req.body
   return Expense.create({ name, date, category, cost, comment })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
@@ -30,11 +26,7 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id', (req, res) => {
   const id = req.params.id
-  const name = req.body.name
-  const date = req.body.date
-  const category = req.body.category
-  const cost = req.body.cost
-  const comment = req.body.comment
+  const { name, date, category, cost, comment } = req.body
   return Expense.findById(id)
     .then(expense => {
       expense.name = name

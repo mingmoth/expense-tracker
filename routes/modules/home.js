@@ -2,54 +2,84 @@ const express = require('express')
 const router = express.Router()
 // 引用 Todo model
 const Expense = require('../../models/expense')
+const Category = require('../../models/category')
+const moment = require('moment')
+const { getIcon, dateToString } = require('../../tools/helpers')
+const expense = require('../../models/expense')
+
 
 // 定義首頁路由
-router.get('/', (req, res) => {
-  const categories = {
-    家居物業: '<i class="fas fa-laptop-house"></i>',
-    交通出行: '<i class="fas fa-bus-alt"></i>',
-    休閒娛樂: '<i class="fas fa-icons"></i>',
-    餐飲食品: '<i class="fas fa-hotdog"></i>',
-    其他: '<i class="fas fa-paste"></i>'
-  }
-  let totalCost = 0
-  Expense.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then((expenses) => {
-      expenses.forEach((expense) => totalCost += expense.cost),
-        res.render('index', { expenses, categories, totalCost })
+router.get('/', async (req, res) => {
+  try {
+    const categories = await Category.find().lean()
+    const categoryData = {}
+    categories.forEach((category) => {
+      categoryData[category.name] = category.icon
     })
-    .catch(error => console.log(error))
+
+    const expenses = await Expense.find().sort({ date: 'asc' }).lean()
+
+    let totalCost = 0
+
+    expenses.forEach((expense) => {
+      expense.categoryIcon = categoryData[expense.category]
+      totalCost += expense.cost
+    })
+    return res.render('index', { expenses, categories, totalCost })
+  } catch (err) { console.log(err) }
 })
 
 //特定類別支出
-router.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  // console.log(keyword)
+router.get('/search', async (req, res) => {
+  // const categorySearch = req.query.categorySearch
+  // let { startDate, endDate } = req.query
+  // startDate = startDate || '2021-01-01' // default start date
+  // endDate = endDate || moment().format('YYYY-MM-DD') // today as default end date
 
-  const categories = {
-    家居物業: '<i class="fas fa-laptop-house"></i>',
-    交通出行: '<i class="fas fa-bus-alt"></i>',
-    休閒娛樂: '<i class="fas fa-icons"></i>',
-    餐飲食品: '<i class="fas fa-hotdog"></i>',
-    其他: '<i class="fas fa-paste"></i>'
-  }
+  // Promise.all([Expense.find({ category: { $regex: categorySearch }, date: { $gte: startDate, $lt: endDate } }).lean().sort({ date: 'asc' }), Category.find().lean()])
+  //   .then(results => {
+  //     const [expenses, categories] = results
+  //     let totalCost = 0
+  //     expenses.forEach(expense => {
+  //       expense.categoryIcon = getIcon(expense.category, categories)
+  //       expense.date = moment(expense.date).format('YYYY-MM-DD')
+  //       totalCost += expense.cost
+  //     })
+  //     res.render('index', { expenses, categorySearch, totalCost, startDate, endDate })
+  //   })
+  //   .catch(err => console.log(err))
 
-  let totalCost = 0
+  try {
+    const categorySearch = req.query.categorySearch
+    const categories = await Category.find().lean()
 
-  Expense.find()
-    .lean()
-    .then((expenses) => {
-      if (keyword === '全部') {
-        expenses = expenses
-      } else {
-        expenses = expenses.filter((expense) => expense.category.includes(keyword))
-      }
-      // console.log(expenses)
-      expenses.forEach((expense) => totalCost += expense.cost)
-      res.render('index', { expenses, categories, totalCost, keyword })
+    const filterQuery = {}
+    categorySearch ? filterQuery.category = categorySearch : ''
+
+    const expenses = await Expense.aggregate([
+      { $project: { name: 1, category: 1, date: 1, cost: 1, comment: 1 } },
+      { $match: filterQuery }
+    ])
+
+    const categoryData = {}
+    categories.forEach((category) => {
+      categoryData[category.name] = category.icon
     })
+
+    let totalCost = 0
+
+    expenses.forEach((expense) => {
+      expense.categoryIcon = categoryData[expense.category]
+      totalCost += expense.cost
+    })
+    return res.render('index', {
+      expenses, categories, totalCost, categorySearch
+    })
+
+  } catch (err) { console.log(err) }
+
+
+
 })
 
 module.exports = router

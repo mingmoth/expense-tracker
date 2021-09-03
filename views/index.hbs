@@ -17,12 +17,9 @@
     <div class="row d-flex justify-content-center">
       <div class="row d-flex justify-content-between p-0 mt-1 mb-3" style="max-width: 960px;">
         <div class="col-12 col-sm-6 p-0 mt-2">
-          <select class="form-select" name="" id="">
-            <option value="" disabled selected>支出時間找時間做</option>
-          </select>
         </div>
         <div class="col-12 col-sm-6 p-0 mt-2">
-          <select class="form-select" name="keyword" id="keyword" onchange="submit()">
+          <select class="form-select" name="categorySearch" id="categorySearch" onchange="submit()">
             <option value="" disabled selected>支出類別</option>
             <option value="全部">全部</option>
             <option value="餐飲食品">餐飲食品</option>
@@ -49,7 +46,7 @@
         <div class="row">
           <div class="col-3 col-sm-2 position-relative">
             <div class="position-absolute top-50 start-50 translate-middle btn btn-secondary">
-              {{{categoryIcon this.category ../categories}}}
+              <i class="{{this.categoryIcon}}"></i>
             </div>
           </div>
           <div class="col-3 col-sm-4">
@@ -68,7 +65,8 @@
           <div class="col-3 col-sm-2 position-relative">
             <div class="d-flex flex-column justify-content-center align-items-center">
               <a class="btn btn-secondary fas fa-edit m-2" style="width: 40px;" href="/expenses/{{this._id}}/edit"></a>
-              <form action="./expenses/{{this._id}}?_method=DELETE" method="POST" onSubmit="return confirm('你確定要刪除此項支出?');">
+              <form action="./expenses/{{this._id}}?_method=DELETE" method="POST"
+                onSubmit="return confirm('你確定要刪除此項支出?');">
                 <button type="submit" class="btn btn-warning fas fa-trash m-2"></button>
               </form>
             </div>
