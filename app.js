@@ -8,6 +8,7 @@ require('./config/mongoose')
 
 const Expense = require('./models/expense');
 
+const {eq, toDate} = require('./tools/helpers')
 // 如果在 Heroku 環境則使用 process.env.PORT
 // 否則為本地環境，使用 3000 
 const PORT = 3000
@@ -15,6 +16,7 @@ const PORT = 3000
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs',
+  helpers: { eq, toDate}
 }))
 
 app.set('view engine', 'hbs')

@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
+const moment = require('moment')
 const Expense = require('../../models/expense')
 
 
 //新增支出
 router.get('/new', (req, res) => {
-  return res.render('new')
+  const today = moment().format('YYY-MM-DD')
+  return res.render('new', { date: today })
 })
 
 router.post('/', (req, res) => {
@@ -20,7 +22,9 @@ router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   return Expense.findById(id)
     .lean()
-    .then((expense) => res.render('edit', { expense }))
+    .then((expense) => {
+      res.render('edit', { expense })
+    })
     .catch(error => console.log(error))
 })
 
