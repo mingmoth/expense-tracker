@@ -14,12 +14,11 @@ router.get('/', (req, res) => {
   Promise.all([Expense.find().lean().sort('-date'), Category.find().lean()])
     .then(results => {
       const [expenses, categories] = results
-      // const totalCost = getAccountingFormat(getTotalAmount(expenses))
       let totalCost = 0
       const defaultStartDate = '2021-01-01'
       const today = moment().format('YYYY-MM-DD')
+
       expenses.forEach(expense => {
-        // console.log(expense)
         expense.categoryIcon = getIconClassName(expense.category, categories)
         expense.date = moment(expense.date).format('YYYY-MM-DD')
         totalCost += expense.cost
