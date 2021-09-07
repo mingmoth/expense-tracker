@@ -26,8 +26,10 @@
         <div class="col-12 col-sm-6 p-0 mt-2">
           <select class="form-select" name="monthSearch" id="monthSearch" onchange="submit()">
             <option value="" disabled selected>支出月份</option>
-            <option value="" selected>全部月份</option>
-
+            <option value="">全部月份</option>
+            {{#each monthCollect}}
+            <option value="">{{this}}</option>
+            {{/each}}
           </select>
         </div>
         <div class="col-12 col-sm-6 p-0 mt-2">
