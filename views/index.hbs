@@ -1,4 +1,11 @@
 <div class="container my-5">
+
+  <div class="row d-flex justify-content-center mb-3">
+    <div class="d-flex justify-content-end p-0" style="max-width: 960px;">
+      <a class="btn btn-warning" href="./expenses/new">新增支出</a>
+    </div>
+  </div>
+
   <!--Cost Summary-->
   <div class="row d-flex justify-content-center ">
     <div class="d-flex justify-content-between align-items-end" style="max-width: 960px;">
@@ -13,22 +20,15 @@
     </div>
   </div>
   <!--Selection-->
-  <form action="/search">
+  <form action="/search" method="GET">
     <div class="row d-flex justify-content-center">
-      <div class="row d-flex justify-content-between p-0 mt-1 mb-3" style="max-width: 960px;">
+      <div class="row d-flex justify-content-around p-0 mt-1 mb-3" style="max-width: 960px;">
         <div class="col-12 col-sm-6 p-0 mt-2">
-          <div class="text-center pt-1 pl-3">從</div>
-          <div class="px-0">
-            <div class="container-fluid form-group mb-0">
-              <input type="date" name="startDate" value="{{ startDate }}" id="start-date-input">
-            </div>
-          </div>
-          <div class="text-center pt-1">到</div>
-          <div class="px-0">
-            <div class="container-fluid form-group mb-0">
-              <input type="date" name="endDate" value="{{ endDate }}" id="end-date-input">
-            </div>
-          </div>
+          <select class="form-select" name="monthSearch" id="monthSearch" onchange="submit()">
+            <option value="" disabled selected>支出月份</option>
+            <option value="" selected>全部月份</option>
+
+          </select>
         </div>
         <div class="col-12 col-sm-6 p-0 mt-2">
           <select class="form-select" name="categorySearch" id="categorySearch" onchange="submit()">
@@ -41,14 +41,15 @@
             <option value="其他" {{#if (eq categorySearch '其他' )}} selected {{/if}}>其他</option>
           </select>
         </div>
+
+
       </div>
     </div>
   </form>
 
-  
   <div class="row d-flex justify-content-center mb-3">
     <div class="d-flex justify-content-end p-0" style="max-width: 960px;">
-      <a class="btn btn-outline-secondary" href="./expenses/new">新增支出</a>
+      <a class="btn btn-outline-secondary" href="/">清除篩選</a>
     </div>
   </div>
 
