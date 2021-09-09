@@ -2,7 +2,7 @@
 
   <div class="row d-flex justify-content-center mb-3">
     <div class="d-flex justify-content-end p-0" style="max-width: 960px;">
-      <a class="btn btn-warning" href="./expenses/new">新增支出</a>
+      <a class="btn btn-secondary" href="./expenses/new">新增支出</a>
     </div>
   </div>
 
@@ -24,17 +24,26 @@
     <div class="row d-flex justify-content-center">
       <div class="row d-flex justify-content-around p-0 mt-1 mb-3" style="max-width: 960px;">
         <div class="col-12 col-sm-6 p-0 mt-2">
-          <select class="form-select" name="monthSearch" id="monthSearch" onchange="submit()">
+
+          <select class="form-select" name="timeSearch" id="timeSearch" onchange="submit()">
+            {{#if timeSearch}}
+            <option value="{{timeSearch}}" selected>{{timeSearch}}</option>
+            {{else}}
             <option value="" disabled selected>支出月份</option>
+            {{/if}}
             <option value="">全部月份</option>
             {{#each monthCollect}}
-            <option value="">{{this}}</option>
+            <option value="{{this}}">{{this}}</option>
             {{/each}}
           </select>
         </div>
         <div class="col-12 col-sm-6 p-0 mt-2">
           <select class="form-select" name="categorySearch" id="categorySearch" onchange="submit()">
+            {{#if categorySearch}}
+            <option value="{{categorySearch}}" selected>{{categorySearch}}</option>
+            {{else}}
             <option value="" disabled selected>支出類別</option>
+            {{/if}}
             <option value="">全部類別</option>
             <option value="餐飲食品" {{#if (eq categorySearch '餐飲食品' )}} selected {{/if}}>餐飲食品</option>
             <option value="休閒娛樂" {{#if (eq categorySearch '休閒娛樂' )}} selected {{/if}}>休閒娛樂</option>

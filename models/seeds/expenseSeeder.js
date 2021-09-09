@@ -6,7 +6,7 @@ const expenses = [
   {
     "id": 1,
     "name": "午餐",
-    "date": "2021-07-22",
+    "date": "2021-09-07",
     "category": "餐飲食品",
     "cost": 120,
     "comment": "麥當勞"
@@ -22,7 +22,7 @@ const expenses = [
   {
     "id": 3,
     "name": "Uber",
-    "date": "2021-07-22",
+    "date": "2021-09-02",
     "category": "交通出行",
     "cost": 192,
     "comment": ""
@@ -30,7 +30,7 @@ const expenses = [
   {
     "id": 4,
     "name": "電費",
-    "date": "2021-07-22",
+    "date": "2021-06-22",
     "category": "家居物業",
     "cost": 790,
     "comment": "2021/05-2021/06"
@@ -38,7 +38,7 @@ const expenses = [
   {
     "id": 5,
     "name": "Alpha Camp 學費",
-    "date": "2021-07-22",
+    "date": "2021-08-22",
     "category": "其他",
     "cost": 3600,
     "comment": "學期一"

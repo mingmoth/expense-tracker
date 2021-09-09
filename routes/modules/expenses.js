@@ -23,6 +23,7 @@ router.get('/:id/edit', (req, res) => {
   return Expense.findById(id)
     .lean()
     .then((expense) => {
+      console.log(expense)
       res.render('edit', { expense })
     })
     .catch(error => console.log(error))
@@ -39,7 +40,9 @@ router.put('/:id', (req, res) => {
       expense.cost = cost
       expense.comment = comment
       return expense.save()
+      console.log(expense)
     })
+    // .then(console.log(req.body))
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
