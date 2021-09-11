@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 
 // 否則為本地環境，使用 mongodb://localhost/todo-list
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/expense-tracker'
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
 const db = mongoose.connection
 db.on('error', () => {

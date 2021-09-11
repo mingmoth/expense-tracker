@@ -11,16 +11,18 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const { name, date, category, cost, comment } = req.body
-  return Expense.create({ name, date, category, cost, comment })
+  return Expense.create({ name, date, category, cost, comment, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 //編輯支出
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Expense.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Expense.findOne({ _id, userId })
     .lean()
     .then((expense) => {
       console.log(expense)
@@ -30,9 +32,10 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-  const id = req.params.id
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, category, cost, comment } = req.body
-  return Expense.findById(id)
+  return Expense.findOne({ _id, userId })
     .then(expense => {
       expense.name = name
       expense.date = date
@@ -49,8 +52,9 @@ router.put('/:id', (req, res) => {
 
 //刪除支出
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Expense.findById(id)
+  const userId = req.user._id
+  const _id = req.params.id
+  return Expense.findOne({ _id, userId})
     .then(expense => expense.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
